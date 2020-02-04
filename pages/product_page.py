@@ -2,7 +2,7 @@ from pages.base_page import BasePage
 from pages.locators import ProducPageLocators
 
 class ProductPage(BasePage):
-    def item_should_be_added_to_basket(self):
+    def check_item_is_added_to_basket(self):
         item_name = self.get_item_name()
         item_price = self.get_item_price()
         self.add_to_basket()
@@ -20,7 +20,7 @@ class ProductPage(BasePage):
     def add_to_basket(self):
         btn = self.browser.find_element(*ProducPageLocators.ADD_TO_BASKET_BUTTON)
         btn.click()
-        self.solve_quiz_and_get_code()
+        # self.solve_quiz_and_get_code()
 
     def get_result_message(self):
         return list(map(lambda el:el.text, self.browser.find_elements(*ProducPageLocators.GOOD_ADDED_MESSAGE)))
@@ -34,3 +34,9 @@ class ProductPage(BasePage):
 
     def added_item_price_shold_be_the_same(self,message,item_price):
         assert item_price in message, 'стоимость добавленного товара отличается'
+
+    def shold_not_be_success_message(self):
+        assert self.is_not_element_present(*ProducPageLocators.GOOD_ADDED_MESSAGE),'присутствует сообщение об успешном добавлении'
+
+    def success_message_is_disappeared(self):
+        assert self.is_disappeared(*ProducPageLocators.GOOD_ADDED_MESSAGE),'сообщение об успешном добавлении не исчезло'
