@@ -6,6 +6,7 @@ class ProductPage(BasePage):
         item_name = self.get_item_name()
         item_price = self.get_item_price()
         self.add_to_basket()
+        self.solve_quiz_and_get_code()
         message = self.get_result_message()
         self.item_should_be_added(message)
         self.added_item_name_should_be_the_same(message,item_name)
@@ -20,7 +21,6 @@ class ProductPage(BasePage):
     def add_to_basket(self):
         btn = self.browser.find_element(*ProducPageLocators.ADD_TO_BASKET_BUTTON)
         btn.click()
-        # self.solve_quiz_and_get_code()
 
     def get_result_message(self):
         return list(map(lambda el:el.text, self.browser.find_elements(*ProducPageLocators.GOOD_ADDED_MESSAGE)))
