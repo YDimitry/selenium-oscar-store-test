@@ -62,12 +62,12 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     login_page.should_be_login_page()
 
 
-@pytest.mark.parametrize('nr', offer)
+# @pytest.mark.parametrize('nr', offer)
 @pytest.mark.need_review
-def test_guest_can_add_product_to_basket(browser, nr):
-    link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?'
-    promo = 'promo=offer' + nr
-    page = ProductPage(browser, link + promo)
+def test_guest_can_add_product_to_basket(browser):
+    link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear'
+    # promo = 'promo=offer' + nr
+    page = ProductPage(browser, link)
     page.open()
     page.check_item_is_added_to_basket()
 
